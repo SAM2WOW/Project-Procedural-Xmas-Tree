@@ -1,11 +1,17 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Scripts/TreeGeneration.gd" type="Script" id=1]
 [ext_resource path="res://Scripts/CameraMovement.gd" type="Script" id=2]
 [ext_resource path="res://Arts/Materials/GreenToy.tres" type="Material" id=3]
 [ext_resource path="res://Arts/Materials/Floor.tres" type="Material" id=4]
+[ext_resource path="res://Arts/Materials/Stem.tres" type="Material" id=5]
 
 [sub_resource type="CapsuleMesh" id=1]
+
+[sub_resource type="CylinderMesh" id=6]
+top_radius = 0.05
+bottom_radius = 0.1
+radial_segments = 4
 
 [sub_resource type="CylinderMesh" id=2]
 material = ExtResource( 4 )
@@ -48,6 +54,11 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0 )
 material_override = ExtResource( 3 )
 script = ExtResource( 1 )
 
+[node name="Stem" type="MeshInstance" parent="Spatial/Meshes/GenerateMesh"]
+material_override = ExtResource( 5 )
+mesh = SubResource( 6 )
+material/0 = null
+
 [node name="Floor" type="MeshInstance" parent="Spatial/Meshes"]
 mesh = SubResource( 2 )
 material/0 = null
@@ -56,7 +67,7 @@ material/0 = null
 environment = SubResource( 4 )
 
 [node name="DirectionalLight" type="DirectionalLight" parent="Spatial"]
-transform = Transform( 1, 0, 0, 0, 0.881105, 0.47292, 0, -0.47292, 0.881105, 0, 6.47772, 6.47802 )
+transform = Transform( 1, 0, 0, 0, 0.707106, 0.707107, 0, -0.707107, 0.707106, 0, 6.47772, 6.47802 )
 shadow_enabled = true
 
 [node name="Particles" type="Particles" parent="Spatial"]

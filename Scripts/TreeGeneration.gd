@@ -7,8 +7,7 @@ signal tree_updated(height, aabb)
 
 
 func _ready():
-	set_mesh(generate_tree())
-	emit_signal("tree_updated", tree_height, get_aabb())
+	set_tree_mesh()
 
 
 func generate_tree():
@@ -58,12 +57,19 @@ func generate_tree():
 		
 		tree = st.commit(tree)
 		
-		level += rand_range(0.01, 0.1)
+		level += rand_range(0.01, 0.2)
 	
 	return tree
 
 
-func _on_Generate_pressed():
+func set_tree_mesh():
 	set_mesh(generate_tree())
 	emit_signal("tree_updated", tree_height, get_aabb())
+	
+	# Set stem height
+	$Stem.set_scale(Vector3(1, tree_height, 1))
+
+
+func _on_Generate_pressed():
+	set_tree_mesh()
 	
