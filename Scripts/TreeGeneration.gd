@@ -1,7 +1,12 @@
 extends MeshInstance
 
-export var tree_height = 5.0
-export var tree_max_radius = 2.0
+var tree_height = 5.0
+var tree_max_radius = 2.0
+
+export var tree_radius_offsets = 0.2
+export var tree_center_offsets = 0.2
+export var tree_leaves_offsets = 0.5
+export var tree_level_max_increment = 0.2
 
 signal tree_updated(height, aabb)
 
@@ -18,10 +23,11 @@ func generate_tree():
 	
 	# Randomize Tree Properties
 	var sides = rand_range(32, 64)
-	var level = 0
 	
 	tree_height = rand_range(2, 10)
-	tree_max_radius = rand_range(1, 5)
+	tree_max_radius = rand_range(1, 4)
+	
+	var level = 0
 	
 	# Start generation
 	while level < tree_height:
@@ -32,13 +38,13 @@ func generate_tree():
 			# Randomize generation possibility
 			if randi() & 1:
 				
-				# Center
+				# Center vertex
 				st.add_uv(Vector2(rand_range(0, 1), 1))
-				st.add_vertex(Vector3(0, level + rand_range(-0.2, 0.2), 0))
+				st.add_vertex(Vector3(0, level + rand_range(-tree_center_offsets, tree_center_offsets), 0))
 				
 				# Random Offset
-				var new_level = level + rand_range(-0.5, 0.5)
-				var radius = lerp(tree_max_radius, 0.1, level / tree_height) + rand_range(-0.2, 0.2)
+				var new_level = level + rand_range(-tree_leaves_offsets, tree_leaves_offsets)
+				var radius = lerp(tree_max_radius, 0.1, level / tree_height) + rand_range(-tree_radius_offsets, tree_radius_offsets)
 				
 				# Two points
 				var x1 = radius * sin((2 * PI * i) / sides)
@@ -57,7 +63,8 @@ func generate_tree():
 		
 		tree = st.commit(tree)
 		
-		level += rand_range(0.01, 0.2)
+		level += rand_range(0.01, tree_level_max_increment)
+	
 	
 	return tree
 
@@ -67,7 +74,17 @@ func set_tree_mesh():
 	emit_signal("tree_updated", tree_height, get_aabb())
 	
 	# Set stem height
-	$Stem.set_scale(Vector3(1, tree_height, 1))
+	#$Stem.set_scale(Vector3(1, tree_height, 1))
+	
+	# Create stem
+	var stem = CylinderMesh.new()
+	stem.set_top_radius(0.05)
+	stem.set_bottom_radius(0.1)
+	stem.set_height(tree_height * 2)
+	stem.set_radial_segments(4)
+	stem.set_rings(64)
+	
+	$Stem.set_mesh(stem)
 
 
 func _on_Generate_pressed():

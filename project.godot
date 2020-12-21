@@ -19,6 +19,14 @@ config/name="Project Procedural Xmas Tree"
 run/main_scene="res://Scenes/Main.tscn"
 config/icon="res://Arts/Icon.png"
 
+[display]
+
+window/handheld/orientation="portrait"
+
 [input_devices]
 
 pointing/emulate_touch_from_mouse=true
+
+[rendering]
+
+vram_compression/import_etc=true
