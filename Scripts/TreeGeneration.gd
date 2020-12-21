@@ -73,9 +73,6 @@ func set_tree_mesh():
 	set_mesh(generate_tree())
 	emit_signal("tree_updated", tree_height, get_aabb())
 	
-	# Set stem height
-	#$Stem.set_scale(Vector3(1, tree_height, 1))
-	
 	# Create stem
 	var stem = CylinderMesh.new()
 	stem.set_top_radius(0.01)
@@ -85,6 +82,12 @@ func set_tree_mesh():
 	stem.set_rings(16)
 	
 	$Stem.set_mesh(stem)
+	
+	# Create Collisions
+	create_convex_collision()
+	
+	# Animation
+	$AnimationPlayer.play("spawn")
 
 
 func _on_Generate_pressed():
