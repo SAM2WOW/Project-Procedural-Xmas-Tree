@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://TreeGeneration.gd" type="Script" id=1]
-[ext_resource path="res://CameraMovement.gd" type="Script" id=2]
+[ext_resource path="res://Scripts/TreeGeneration.gd" type="Script" id=1]
+[ext_resource path="res://Scripts/CameraMovement.gd" type="Script" id=2]
 [ext_resource path="res://Arts/Materials/GreenToy.tres" type="Material" id=3]
 [ext_resource path="res://Arts/Materials/Floor.tres" type="Material" id=4]
 
