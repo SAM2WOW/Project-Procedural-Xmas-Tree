@@ -20,7 +20,10 @@ func _unhandled_input(event):
 
 func _process(delta):
 	# Auto rotate X
-	rotate_object_local(Vector3.DOWN, input_speed.x)
+	if sign(input_speed.x) >= 0:
+		rotate_object_local(Vector3.DOWN, max(0.01, input_speed.x))
+	else:
+		rotate_object_local(Vector3.DOWN, min(-0.01, input_speed.x))
 	
 	# Limit Camera Y
 	#rotate_object_local(Vector3.LEFT, input_speed.y)

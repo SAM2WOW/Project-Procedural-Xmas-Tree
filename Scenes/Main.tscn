@@ -32,7 +32,7 @@ shader_param/uv2_scale = Vector3( 1, 1, 1 )
 shader_param/uv2_offset = Vector3( 0, 0, 0 )
 shader_param/texture_albedo = ExtResource( 7 )
 
-[sub_resource type="Shader" id=8]
+[sub_resource type="Shader" id=3]
 code = "shader_type spatial;
 render_mode blend_mix,depth_draw_opaque,cull_disabled,diffuse_lambert_wrap,specular_schlick_ggx;
 uniform vec4 albedo : hint_color;
@@ -97,8 +97,8 @@ void fragment() {
 }
 "
 
-[sub_resource type="ShaderMaterial" id=9]
-shader = SubResource( 8 )
+[sub_resource type="ShaderMaterial" id=4]
+shader = SubResource( 3 )
 shader_param/albedo = Color( 0.145098, 0.180392, 0.0823529, 1 )
 shader_param/specular = null
 shader_param/metallic = 0.1
@@ -119,22 +119,22 @@ shader_param/uv1_offset = null
 shader_param/uv2_scale = null
 shader_param/uv2_offset = null
 
-[sub_resource type="CylinderMesh" id=4]
+[sub_resource type="CylinderMesh" id=5]
 material = ExtResource( 4 )
 top_radius = 10.0
 bottom_radius = 10.0
 height = 0.02
 
-[sub_resource type="ProceduralSky" id=5]
+[sub_resource type="ProceduralSky" id=6]
 
-[sub_resource type="Environment" id=6]
+[sub_resource type="Environment" id=7]
 background_mode = 1
-background_sky = SubResource( 5 )
+background_sky = SubResource( 6 )
 background_color = Color( 0.513726, 0.686275, 0.694118, 1 )
 ambient_light_color = Color( 0.290196, 0.372549, 0.388235, 1 )
 glow_enabled = true
 
-[sub_resource type="ParticlesMaterial" id=7]
+[sub_resource type="ParticlesMaterial" id=8]
 
 [node name="Main" type="Node"]
 
@@ -161,14 +161,14 @@ material_override = SubResource( 2 )
 script = ExtResource( 1 )
 
 [node name="Stem" type="MeshInstance" parent="Spatial/Meshes/Tree"]
-material_override = SubResource( 9 )
+material_override = SubResource( 4 )
 
 [node name="Floor" type="MeshInstance" parent="Spatial/Meshes"]
-mesh = SubResource( 4 )
+mesh = SubResource( 5 )
 material/0 = null
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Spatial"]
-environment = SubResource( 6 )
+environment = SubResource( 7 )
 
 [node name="DirectionalLight" type="DirectionalLight" parent="Spatial"]
 transform = Transform( 1, 0, 0, 0, 0.707106, 0.707107, 0, -0.707107, 0.707106, 0, 6.47772, 6.47802 )
@@ -179,7 +179,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.0413, 0 )
 visible = false
 cast_shadow = 0
 visibility_aabb = AABB( -10, -10, -10, 20, 20, 20 )
-process_material = SubResource( 7 )
+process_material = SubResource( 8 )
 
 [node name="Control" type="Control" parent="."]
 anchor_right = 1.0

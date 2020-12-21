@@ -78,11 +78,11 @@ func set_tree_mesh():
 	
 	# Create stem
 	var stem = CylinderMesh.new()
-	stem.set_top_radius(0.05)
+	stem.set_top_radius(0.01)
 	stem.set_bottom_radius(0.1)
 	stem.set_height(tree_height * 2)
 	stem.set_radial_segments(4)
-	stem.set_rings(64)
+	stem.set_rings(16)
 	
 	$Stem.set_mesh(stem)
 
